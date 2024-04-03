@@ -24,21 +24,16 @@ O arquivo JSON deve ter a estrutura abaixo e conforme as operações realizadas,
 import json
 
 
-def cadastrar_pet():
+def cadastrar_pet(lista_pet: list):
     """ Função responsável por cadastrar pets """
-    try:
-        with open('arquivos/ex3.json', 'r', encoding='utf-8') as arquivo:
-            lista = json.load(arquivo)  # transforma em um array
-    except:
-        print('Erro ao ler arquivo')
     try:
         with open('arquivos/ex3.json', 'w', encoding='utf-8') as arquivo:
             dicionario = {}
             dicionario['tipo'] = input("Digite o tipo do seu pet: ")
             dicionario['nome'] = input("Digite o nome do seu pet: ")
             dicionario['idade'] = int(input("Digite a idade do seu pet: "))
-            lista.append(dicionario)  # adiciona o pet em um array
-            json.dump(lista, arquivo, ensure_ascii=False, indent=4)
+            lista_pet.append(dicionario)  # adiciona o pet em um array
+            json.dump(lista_pet, arquivo, ensure_ascii=False, indent=4)
     except:
         print('Erro ao escrever no arquivo')
 
@@ -62,6 +57,25 @@ def excluir_pets(lista_pet: list):
     except:
         print('Erro ao excluir pet')
 
+def atualizar_pets(lista_pet: list):
+    """ Função resposável por atualizar os pets cadastrados """
+    try:
+        with open('arquivos/ex3.json', 'w', encoding='utf-8') as arquivo:
+            pet_encontrado = False
+            nome_pet = input('Digite o nome do pet que você deseja atualizar: ')
+            for item in lista_pet:
+                if item['nome'] == nome_pet:
+                    item['tipo'] = input('Digite o novo tipo do pet: ')
+                    item['nome'] = input('Digite o novo nome do pet: ')
+                    item['idade'] = int(input('Digite a nova idade do pet: '))
+                    print('Pet atualizado com sucesso')
+                    pet_encontrado = True
+            if not pet_encontrado:
+                print('Pet não encontrado')
+            else:
+                json.dump(lista_pet, arquivo, ensure_ascii=False, indent=4)
+    except:
+        print('Erro ao atualizar pet')
 
 while True:
     lista_pet = []
@@ -82,9 +96,10 @@ while True:
                 "1 - Cadastrar Pets\n"
                 "2 - Excluir Pets\n"
                 "3 - Listar Todos\n"
+                "4 - Atualizar Pets\n"
                 "0 - Sair\n"):
         case '1':
-            cadastrar_pet()
+            cadastrar_pet(lista_pet)
         case '2':
             if len(lista_pet) >= 1:
                 excluir_pets(lista_pet)
@@ -96,6 +111,11 @@ while True:
                     print(item)
             else:
                 print('Nenhum pet cadastrado')
+        case '4':
+            if len(lista_pet) >= 1:
+                atualizar_pets(lista_pet)
+            else:
+                print('Sem nenhum pet cadastrado')
         case '0':
             break
         case _:

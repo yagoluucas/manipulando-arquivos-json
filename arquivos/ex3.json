@@ -1,1 +1,7 @@
-[{"tipo": "Cachorro", "nome": "Belinha", "idade": 4}]
+[
+    {
+        "tipo": "Gato",
+        "nome": "Frajola",
+        "idade": 3
+    }
+]
