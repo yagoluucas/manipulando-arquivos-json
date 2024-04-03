@@ -23,7 +23,6 @@ O arquivo JSON deve ter a estrutura abaixo e conforme as operações realizadas,
 """
 import json
 
-
 def cadastrar_pet(lista_pet: list):
     """ Função responsável por cadastrar pets """
     try:
@@ -57,6 +56,7 @@ def excluir_pets(lista_pet: list):
     except:
         print('Erro ao excluir pet')
 
+
 def atualizar_pets(lista_pet: list):
     """ Função resposável por atualizar os pets cadastrados """
     try:
@@ -76,6 +76,7 @@ def atualizar_pets(lista_pet: list):
                 json.dump(lista_pet, arquivo, ensure_ascii=False, indent=4)
     except:
         print('Erro ao atualizar pet')
+
 
 while True:
     lista_pet = []
